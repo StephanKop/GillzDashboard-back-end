@@ -8,10 +8,10 @@ interface DeadlinesDto {
         {
             name: string;
             image: string;
+            present: boolean;
         }
     ];
     deadline: string;
-    days: string;
     link: string;
 }
 
@@ -20,31 +20,27 @@ export class DeadlinesController {
     constructor(private deadlinesService: DeadlinesService) {}
 
     @Get()
-    getDeadlines() {
+    getDeadlines(@Param() params) {
         return this.deadlinesService.getDeadlines();
     }
 
-    @Get(':id')
-    getDeadline(@Param() params) {
-        console.log('get a single product', params.id);
-        return this.deadlinesService.getDeadlines().filter(p => p.id == params.id);
+    @Get(':four')
+    getFourDeadlines(@Param() params) {
+        return this.deadlinesService.getFourDeadlines(true);
     }
 
-    @Post()
-    createDeadline(@Body() product: DeadlinesDto) {
-        console.log('create product', product);
-        this.deadlinesService.createDeadline(product);
-    }
-
-    @Put()
-    updateDeadline(@Body() product: DeadlinesDto) {
-        console.log('update product', product);
-        this.deadlinesService.updateDeadline(product);
-    }
-
-    @Delete()
-    deleteDeadline(@Body() product: DeadlinesDto) {
-        console.log('delete product', product.id);
-        this.deadlinesService.deleteDeadline(product.id);
-    }
+    // @Post()
+    // async createDeadline(@Body() deadline: DeadlinesDto):Promise<DeadlinesDto> {
+    //     return await this.deadlinesService.createDeadline(deadline);
+    // }
+    //
+    // @Put()
+    // updateDeadline(@Body() deadline: DeadlinesDto) {
+    //     this.deadlinesService.updateDeadline(deadline);
+    // }
+    //
+    // @Delete()
+    // deleteDeadline(@Body() deadline: DeadlinesDto) {
+    //     this.deadlinesService.deleteDeadline();
+    // }
 }
