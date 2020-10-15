@@ -1,5 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToMany} from 'typeorm';
-import {DeadlinesEntity} from "../../deadlines/deadlines.entity";
+import { Entity, Column, PrimaryGeneratedColumn} from 'typeorm';
 
 @Entity()
 export class MemberEntity {
@@ -14,7 +13,4 @@ export class MemberEntity {
 
     @Column()
     present: boolean;
-
-    // @ManyToMany(() => DeadlinesEntity, deadline => deadline.members)
-    // deadlines: DeadlinesEntity[];
 }

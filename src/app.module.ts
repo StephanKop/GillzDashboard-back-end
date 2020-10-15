@@ -16,6 +16,10 @@ import { MembersModule } from './members/members.module';
 import {MemberEntity} from "./members/entities/member.entity";
 import {ServerStatusModule} from "./server-status/server-status-module";
 import {ServerStatusEntity} from "./server-status/server-status.entity";
+import { NotesModule } from './notes/notes.module';
+import {NoteEntity} from "./notes/entities/note.entity";
+import {NotesController} from "./notes/notes.controller";
+import {NotesService} from "./notes/notes.service";
 
 @Module({
   imports: [TerminusModule, ConfigModule.forRoot(), TypeOrmModule.forRoot({
@@ -25,10 +29,10 @@ import {ServerStatusEntity} from "./server-status/server-status.entity";
     username: process.env.DATABASE_USER,
     password: process.env.DATABASE_PASSWORD,
     database: process.env.DATABASE_NAME,
-    entities: [DeadlinesEntity, MemberEntity, ServerStatusEntity],
+    entities: [DeadlinesEntity, MemberEntity, ServerStatusEntity, NoteEntity],
     synchronize: true,
-  }), MembersModule, DeadlinesModule, ServerStatusModule],
-  controllers: [AppController, ServerStatusController, HealthController, DeadlinesController],
-  providers: [AppService, ServerStatusService, DeadlinesService],
+  }), MembersModule, DeadlinesModule, ServerStatusModule, NotesModule],
+  controllers: [AppController, ServerStatusController, HealthController, DeadlinesController, NotesController],
+  providers: [AppService, ServerStatusService, DeadlinesService, NotesService],
 })
 export class AppModule {}

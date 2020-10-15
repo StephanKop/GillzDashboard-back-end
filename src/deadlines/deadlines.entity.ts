@@ -9,7 +9,7 @@ export class DeadlinesEntity {
     @Column()
     name: string;
 
-    @ManyToMany(type => MemberEntity, {eager: true})
+    @ManyToMany(type => MemberEntity)
     @JoinTable()
     members: MemberEntity[];
 
@@ -19,6 +19,12 @@ export class DeadlinesEntity {
     @Column()
     link: string;
 
-    @Column({ default: true })
+    @Column({ default: false })
     isActive: boolean;
+
+    constructor(
+        partial: Partial<DeadlinesEntity>
+    ) {
+        Object.assign(this, partial);
+    }
 }

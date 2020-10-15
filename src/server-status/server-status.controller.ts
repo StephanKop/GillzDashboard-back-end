@@ -1,20 +1,12 @@
 import { Controller, Get, Param, Post, Body, Put, Delete } from '@nestjs/common';
 import { ServerStatusService } from './server-status.service';
 
-interface serverStatusDto {
-    id: string;
-    name: string;
-    disk: string;
-    memory: string;
-    status: string;
-}
-
 @Controller('server-status')
 export class ServerStatusController {
     constructor(private serverStatusService: ServerStatusService) {}
 
     @Get()
-    getDeadlines(@Param() params) {
+    getServerStatus(@Param() params) {
         return this.serverStatusService.getServerStatus();
     }
 
