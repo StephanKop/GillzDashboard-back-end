@@ -10,7 +10,7 @@ export class ZendeskService {
       const res = await fetch(url, {
         method: 'get',
         headers: ({
-          'Authorization': 'Basic cy5rb3BAZ2lsbHoubmwvdG9rZW46WUdLdGtoVktPNE5IV0JOVUZJSjVmVXBEU2dRMVhnY3JiVlJ6eTlOYw==',
+          'Authorization': process.env.ZENDESK_AUTH,
         }),
       });
       // res
@@ -27,7 +27,7 @@ export class ZendeskService {
         const res = await fetch(url, {
             method: 'get',
             headers: ({
-                'Authorization': 'Basic cy5rb3BAZ2lsbHoubmwvdG9rZW46WUdLdGtoVktPNE5IV0JOVUZJSjVmVXBEU2dRMVhnY3JiVlJ6eTlOYw==',
+                'Authorization': process.env.ZENDESK_AUTH,
             }),
         });
         return res.json();
