@@ -2,29 +2,35 @@ import { Controller, Get, Post, Body, Put, Param, Delete } from '@nestjs/common'
 import { MembersService } from './members.service';
 import { CreateMemberDto } from './dto/create-member.dto';
 import { UpdateMemberDto } from './dto/update-member.dto';
+import {CreateNoteDto} from "../notes/dto/create-note.dto";
 
 @Controller('members')
 export class MembersController {
   constructor(private readonly membersService: MembersService) {}
   
+  // @Post()
+  // create(@Body() createMemberDto: CreateMemberDto) {
+  //   return this.membersService.create(createMemberDto);
+  // }
+
   @Post()
-  create(@Body() createMemberDto: CreateMemberDto) {
-    return this.membersService.create(createMemberDto);
+  async createMember(@Body() member: CreateMemberDto):Promise<CreateMemberDto> {
+    return await this.membersService.createMember(member)
   }
 
   @Get()
-  findAll() {
-    return this.membersService.findAll();
+  getMembers(@Param() params) {
+    return this.membersService.getMembers();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.membersService.findOne(+id);
+  getMember(@Param() params) {
+    return this.membersService.getMember(params.id);
   }
 
   @Put(':id')
   update(@Param('id') id: string, @Body() updateMemberDto: UpdateMemberDto) {
-    return this.membersService.update(+id, updateMemberDto);
+    return this.membersService.updateMember(id, updateMemberDto);
   }
 
   @Delete(':id')

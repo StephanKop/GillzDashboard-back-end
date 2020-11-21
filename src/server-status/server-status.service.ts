@@ -56,7 +56,7 @@ export class ServerStatusService {
     ) {}
 
     getServerStatus(): Promise<ServerStatusEntity[]> {
-        return this.ServerStatusRepository.find();
+        return this.ServerStatusRepository.find({order: {id: "ASC"}});
     }
 
     // getServerStatus() {

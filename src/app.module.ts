@@ -20,6 +20,12 @@ import { NotesModule } from './notes/notes.module';
 import {NoteEntity} from "./notes/entities/note.entity";
 import {NotesController} from "./notes/notes.controller";
 import {NotesService} from "./notes/notes.service";
+import {MembersService} from "./members/members.service";
+import {MembersController} from "./members/members.controller";
+import {ZendeskService} from "./zendesk/zendesk.service";
+import {ZendeskController} from "./zendesk/zendesk.controller";
+import {ZendeskModule} from "./zendesk/zendesk.module";
+import {ZendeskEntity} from "./zendesk/entities/zendesk.entity";
 
 @Module({
   imports: [TerminusModule, ConfigModule.forRoot(), TypeOrmModule.forRoot({
@@ -29,10 +35,10 @@ import {NotesService} from "./notes/notes.service";
     username: process.env.DATABASE_USER,
     password: process.env.DATABASE_PASSWORD,
     database: process.env.DATABASE_NAME,
-    entities: [DeadlinesEntity, MemberEntity, ServerStatusEntity, NoteEntity],
+    entities: [DeadlinesEntity, MemberEntity, ServerStatusEntity, NoteEntity, ZendeskEntity],
     synchronize: true,
-  }), MembersModule, DeadlinesModule, ServerStatusModule, NotesModule],
-  controllers: [AppController, ServerStatusController, HealthController, DeadlinesController, NotesController],
-  providers: [AppService, ServerStatusService, DeadlinesService, NotesService],
+  }), MembersModule, DeadlinesModule, ServerStatusModule, NotesModule, MembersModule, ZendeskModule],
+  controllers: [AppController, ServerStatusController, HealthController, DeadlinesController, NotesController, MembersController, ZendeskController],
+  providers: [AppService, ServerStatusService, DeadlinesService, NotesService, MembersService, ZendeskService],
 })
 export class AppModule {}

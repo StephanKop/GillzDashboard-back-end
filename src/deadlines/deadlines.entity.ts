@@ -19,7 +19,10 @@ export class DeadlinesEntity {
     @Column()
     link: string;
 
-    @Column({ default: false })
+    // @Column({ default: false })
+    // isActive: boolean;
+
+    @Column()
     isActive: boolean;
 
     constructor(
