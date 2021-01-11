@@ -32,7 +32,7 @@ import {DevopsService} from './devops/devops.service';
 import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
-    imports: [TerminusModule, ConfigModule.forRoot(), ScheduleModule.forRoot(), TypeOrmModule.forRoot({
+    imports: [TerminusModule, ConfigModule.forRoot({isGlobal: true}), ScheduleModule.forRoot(), TypeOrmModule.forRoot({
         type: 'postgres',
         host: process.env.DATABASE_HOST,
         port: 5432,

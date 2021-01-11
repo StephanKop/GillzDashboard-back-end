@@ -6,10 +6,12 @@ import * as ta from 'azure-devops-node-api/TaskAgentApi';
 import {Cron, CronExpression} from '@nestjs/schedule';
 import {TaskAgentJobRequest} from 'azure-devops-node-api/interfaces/TaskAgentInterfaces';
 
-const orgUrl = 'https://dev.azure.com/GillzNL';
-const token = 'nvjckrmtdxdhmpgrvmoabvec4kzaykzcp6b7mhzfkthklsoq6zfa';
-const authHandler = azdev.getPersonalAccessTokenHandler(token);
-const connection = new azdev.WebApi(orgUrl, authHandler);
+// const orgUrl = 'https://dev.azure.com/GillzNL';
+// const orgUrl = process.env.DEVOPS_ORGANISATION_URL;
+// const token = 'nvjckrmtdxdhmpgrvmoabvec4kzaykzcp6b7mhzfkthklsoq6zfa';
+// const token = process.env.AZURE_PERSONAL_ACCESS_TOKEN;
+// const authHandler = azdev.getPersonalAccessTokenHandler(token);
+// const connection = new azdev.WebApi(orgUrl, authHandler);
 export let agentRequests: TaskAgentJobRequest[] = [];
 export let projectsResult: TeamProjectWithImage[] = [];
 
@@ -17,6 +19,10 @@ export let projectsResult: TeamProjectWithImage[] = [];
 export class DevopsService {
     @Cron(CronExpression.EVERY_30_SECONDS)
     async getDevopsProjects() {
+        const orgUrl = process.env.DEVOPS_ORGANISATION_URL;
+        const token = process.env.AZURE_PERSONAL_ACCESS_TOKEN;
+        const authHandler = azdev.getPersonalAccessTokenHandler(token);
+        const connection = new azdev.WebApi(orgUrl, authHandler);
         const core: co.ICoreApi = await connection.getCoreApi();
         const projects = await core.getProjects(undefined, undefined, undefined, undefined, true);
         const newArray: TeamProjectWithImage[] = [];
@@ -32,6 +38,10 @@ export class DevopsService {
 
     @Cron(CronExpression.EVERY_30_SECONDS)
     async getDevopsAgentRequests() {
+        const orgUrl = process.env.DEVOPS_ORGANISATION_URL;
+        const token = process.env.AZURE_PERSONAL_ACCESS_TOKEN;
+        const authHandler = azdev.getPersonalAccessTokenHandler(token);
+        const connection = new azdev.WebApi(orgUrl, authHandler);
         const taskAgent: ta.ITaskAgentApi = await connection.getTaskAgentApi();
         agentRequests = await taskAgent.getAgentRequests(9, 50);
     }
