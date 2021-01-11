@@ -1,40 +1,42 @@
-import { Controller, Get, Post, Body, Put, Param, Delete } from '@nestjs/common';
-import { MembersService } from './members.service';
-import { CreateMemberDto } from './dto/create-member.dto';
-import { UpdateMemberDto } from './dto/update-member.dto';
-import {CreateNoteDto} from "../notes/dto/create-note.dto";
+import {Controller, Get, Post, Body, Put, Param, Delete} from '@nestjs/common';
+import {MembersService} from './members.service';
+import {CreateMemberDto} from './dto/create-member.dto';
+import {UpdateMemberDto} from './dto/update-member.dto';
+import {CreateNoteDto} from '../notes/dto/create-note.dto';
+import {CreateDeadlinesDto} from "../deadlines/DTO/create.deadlines.dto";
 
 @Controller('members')
 export class MembersController {
-  constructor(private readonly membersService: MembersService) {}
-  
-  // @Post()
-  // create(@Body() createMemberDto: CreateMemberDto) {
-  //   return this.membersService.create(createMemberDto);
-  // }
+    constructor(private readonly membersService: MembersService) {
+    }
 
-  @Post()
-  async createMember(@Body() member: CreateMemberDto):Promise<CreateMemberDto> {
-    return await this.membersService.createMember(member)
-  }
+    // @Post()
+    // create(@Body() createMemberDto: CreateMemberDto) {
+    //   return this.membersService.create(createMemberDto);
+    // }
 
-  @Get()
-  getMembers(@Param() params) {
-    return this.membersService.getMembers();
-  }
+    @Post()
+    async createMember(@Body() member: CreateMemberDto): Promise<CreateMemberDto> {
+        return await this.membersService.createMember(member);
+    }
 
-  @Get(':id')
-  getMember(@Param() params) {
-    return this.membersService.getMember(params.id);
-  }
+    @Get()
+    getMembers(@Param() params) {
+        return this.membersService.getMembers();
+    }
 
-  @Put(':id')
-  update(@Param('id') id: string, @Body() updateMemberDto: UpdateMemberDto) {
-    return this.membersService.updateMember(id, updateMemberDto);
-  }
+    @Get(':id')
+    getMember(@Param() params) {
+        return this.membersService.getMember(params.id);
+    }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.membersService.remove(+id);
-  }
+    @Put(':id')
+    update(@Param('id') id: string, @Body() updateMemberDto: UpdateMemberDto) {
+        return this.membersService.updateMember(id, updateMemberDto);
+    }
+
+    @Delete(':id')
+    remove(@Param('id') id: number, @Body() member: CreateMemberDto) {
+        return this.membersService.remove(id, member);
+    }
 }

@@ -1,7 +1,7 @@
-import { Injectable } from '@nestjs/common';
-import {InjectRepository} from "@nestjs/typeorm";
-import { Repository } from 'typeorm';
-import {ServerStatusEntity} from "../server-status/server-status.entity";
+import {Injectable} from '@nestjs/common';
+import {InjectRepository} from '@nestjs/typeorm';
+import {Repository} from 'typeorm';
+import {ServerStatusEntity} from '../server-status/server-status.entity';
 
 @Injectable()
 export class ServerStatusService {
@@ -52,11 +52,12 @@ export class ServerStatusService {
 
     constructor(
         @InjectRepository(ServerStatusEntity)
-        private ServerStatusRepository: Repository<ServerStatusEntity>,
-    ) {}
+        private ServerStatusRepository: Repository<ServerStatusEntity>
+    ) {
+    }
 
     getServerStatus(): Promise<ServerStatusEntity[]> {
-        return this.ServerStatusRepository.find({order: {id: "ASC"}});
+        return this.ServerStatusRepository.find({order: {id: 'ASC'}});
     }
 
     // getServerStatus() {

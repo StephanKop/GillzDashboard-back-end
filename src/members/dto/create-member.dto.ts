@@ -3,4 +3,6 @@ export class CreateMemberDto {
     name: string;
     image: string;
     present: boolean;
+    description: string;
+    jobTitle: string;
 }

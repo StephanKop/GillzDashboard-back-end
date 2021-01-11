@@ -1,9 +1,10 @@
-import { Controller, Get, Param, Post, Body, Put, Delete } from '@nestjs/common';
-import { ServerStatusService } from './server-status.service';
+import {Controller, Get, Param} from '@nestjs/common';
+import {ServerStatusService} from './server-status.service';
 
 @Controller('server-status')
 export class ServerStatusController {
-    constructor(private serverStatusService: ServerStatusService) {}
+    constructor(private serverStatusService: ServerStatusService) {
+    }
 
     @Get()
     getServerStatus(@Param() params) {

@@ -1,16 +1,17 @@
-import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, Between } from 'typeorm';
-import { DeadlinesEntity } from './deadlines.entity';
-import {CreateDeadlinesDto} from "./DTO/create.deadlines.dto";
+import {Injectable} from '@nestjs/common';
+import {InjectRepository} from '@nestjs/typeorm';
+import {Repository, Between} from 'typeorm';
+import {DeadlinesEntity} from './deadlines.entity';
+import {CreateDeadlinesDto} from './DTO/create.deadlines.dto';
 
 @Injectable()
 export class DeadlinesService {
 
     constructor(
         @InjectRepository(DeadlinesEntity)
-        private deadlinesRepository: Repository<DeadlinesEntity>,
-    ) {}
+        private deadlinesRepository: Repository<DeadlinesEntity>
+    ) {
+    }
 
     getDeadlines(): Promise<DeadlinesEntity[]> {
         const today = new Date();
@@ -31,18 +32,26 @@ export class DeadlinesService {
         const today = new Date();
         const futureDate = new Date();
         futureDate.setDate(futureDate.getDate() + 100);
-        return this.deadlinesRepository.find({where: {deadline: Between(today, futureDate)}, order: {name: "ASC"}, relations: ['members']});
+        return this.deadlinesRepository.find({
+            where: {deadline: Between(today, futureDate)},
+            order: {project: 'ASC'},
+            relations: ['members']
+        });
     }
 
     getDateOrderedDeadlines(): Promise<DeadlinesEntity[]> {
         const today = new Date();
         const futureDate = new Date();
         futureDate.setDate(futureDate.getDate() + 100);
-        return this.deadlinesRepository.find({where: {deadline: Between(today, futureDate)},  order: {deadline: "ASC"}, relations: ['members']});
+        return this.deadlinesRepository.find({
+            where: {deadline: Between(today, futureDate)},
+            order: {deadline: 'ASC'},
+            relations: ['members']
+        });
     }
 
     createDeadline(deadline: CreateDeadlinesDto): Promise<DeadlinesEntity> {
-       return this.deadlinesRepository.save(deadline);
+        return this.deadlinesRepository.save(deadline);
     }
 
     updateDeadline(id: string, deadline: CreateDeadlinesDto): Promise<DeadlinesEntity> {

@@ -1,35 +1,44 @@
-import { Injectable } from '@nestjs/common';
+import {Injectable} from '@nestjs/common';
 import fetch from 'node-fetch';
+import {Cron, CronExpression} from '@nestjs/schedule';
+
+export let merged: [] = [];
 
 @Injectable()
 export class ZendeskService {
-  async getZendesk() {
-      // const error = String;
-      // let data = []
-      const url = 'https://gillztest.zendesk.com/api/v2/tickets.json'
-      const res = await fetch(url, {
-        method: 'get',
-        headers: ({
-          'Authorization': process.env.ZENDESK_AUTH,
-        }),
-      });
-      // res
-      //     .json()
-      //     .then((res) => {
-      //         data = res;
-      //       return data;
-      //     })
-      //     .catch(err => error(err));
-      return res.json();
-  }
-    async getZendeskUser() {
-        const url = 'https://gillztest.zendesk.com/api/v2/users.json'
+    async getZendesk() {
+        // const url = 'https://gillzdashboard.zendesk.com/api/v2/tickets.json?sort_by=id&sort_order=desc';
+        // const url = 'https://gillz.zendesk.com/api/v2/tickets.json?sort_by=id&sort_order=desc';
+        const url = 'https://gillz.zendesk.com/api/v2/search.json?query=type:ticket status:open';
         const res = await fetch(url, {
             method: 'get',
             headers: ({
-                'Authorization': process.env.ZENDESK_AUTH,
-            }),
+                Authorization: process.env.ZENDESK_AUTH
+            })
         });
         return res.json();
     }
+
+    async getZendeskUser() {
+        // const url = 'https://gillzdashboard.zendesk.com/api/v2/users.json';
+        const url = 'https://gillz.zendesk.com/api/v2/users.json';
+        const res = await fetch(url, {
+            method: 'get',
+            headers: ({
+                Authorization: process.env.ZENDESK_AUTH
+            })
+        });
+        return res.json();
+    }
+    @Cron(CronExpression.EVERY_30_SECONDS)
+    async mergeZendesk() {
+        const tickets = await this.getZendesk();
+        const users = await this.getZendeskUser();
+        merged = tickets.results.map(ticket => ({
+            ...users.users.find((user) => (user.id === ticket.assignee_id)),
+            ...ticket
+        }));
+        // merged = tickets;
+    }
 }
+

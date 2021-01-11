@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, } from 'typeorm';
+import {Entity, Column, PrimaryGeneratedColumn} from 'typeorm';
 
 @Entity()
 export class ServerStatusEntity {
@@ -16,4 +16,12 @@ export class ServerStatusEntity {
 
     @Column()
     status: string;
+    @Column({nullable: true})
+    memoryTotal: number;
+    @Column({nullable: true})
+    memoryUsage: number;
+    @Column({nullable: true})
+    diskTotal: number;
+    @Column({nullable: true})
+    diskUsage: number;
 }

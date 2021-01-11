@@ -1,20 +1,20 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { ZendeskController } from './zendesk.controller';
-import { ZendeskService } from './zendesk.service';
+import {Test, TestingModule} from '@nestjs/testing';
+import {ZendeskController} from './zendesk.controller';
+import {ZendeskService} from './zendesk.service';
 
 describe('NotesController', () => {
-  let controller: ZendeskController;
+    let controller: ZendeskController;
 
-  beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
-      controllers: [ZendeskController],
-      providers: [ZendeskService],
-    }).compile();
+    beforeEach(async () => {
+        const module: TestingModule = await Test.createTestingModule({
+            controllers: [ZendeskController],
+            providers: [ZendeskService]
+        }).compile();
 
-    controller = module.get<ZendeskController>(ZendeskController);
-  });
+        controller = module.get<ZendeskController>(ZendeskController);
+    });
 
-  it('should be defined', () => {
-    expect(controller).toBeDefined();
-  });
+    it('should be defined', () => {
+        expect(controller).toBeDefined();
+    });
 });

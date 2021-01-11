@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, } from 'typeorm';
+import {Entity, Column, PrimaryGeneratedColumn} from 'typeorm';
 
 @Entity()
 export class NoteEntity {
@@ -14,6 +14,6 @@ export class NoteEntity {
     @Column()
     date: Date;
 
-    @Column({ default: true })
+    @Column({default: true})
     isActive: boolean;
 }
