@@ -1,4 +1,4 @@
-export class ServerStatusDto {
+export class UpdateServerStatusDto {
     id: string;
     name: string;
     disk: string;

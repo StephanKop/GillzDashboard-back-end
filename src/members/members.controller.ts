@@ -2,8 +2,6 @@ import {Controller, Get, Post, Body, Put, Param, Delete} from '@nestjs/common';
 import {MembersService} from './members.service';
 import {CreateMemberDto} from './dto/create-member.dto';
 import {UpdateMemberDto} from './dto/update-member.dto';
-import {CreateNoteDto} from '../notes/dto/create-note.dto';
-import {CreateDeadlinesDto} from "../deadlines/DTO/create.deadlines.dto";
 
 @Controller('members')
 export class MembersController {
