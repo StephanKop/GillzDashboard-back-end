@@ -40,7 +40,8 @@ import { ScheduleModule } from '@nestjs/schedule';
         password: process.env.DATABASE_PASSWORD,
         database: process.env.DATABASE_NAME,
         entities: [DeadlinesEntity, MemberEntity, ServerStatusEntity, NoteEntity, ZendeskEntity],
-        synchronize: true
+        synchronize: true,
+        ssl: {rejectUnauthorized: false}
     }), MembersModule, DeadlinesModule, ServerStatusModule, NotesModule, MembersModule, ZendeskModule, DevopsModule],
     controllers: [AppController, ServerStatusController, HealthController, DeadlinesController, NotesController, MembersController, ZendeskController, DevopsController],
     providers: [AppService, ServerStatusService, DeadlinesService, NotesService, MembersService, ZendeskService, DevopsService]
